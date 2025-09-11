@@ -9,6 +9,8 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
 
-    List<StudentEntity> findByName(String firstName);
+    List<StudentEntity> findByNameContainingIgnoreCase(String name);
+
+    List<StudentEntity> findByNameContainingIgnoreCaseAndFaculty(String name, String faculty);
 
 }

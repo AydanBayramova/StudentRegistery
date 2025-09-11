@@ -12,4 +12,7 @@ public class StudentDto {
     private String name;
     private String lastName;
     private LocalDate dateOfBirth;
+    private String faculty;
+    private String phoneNumber;
+
 }

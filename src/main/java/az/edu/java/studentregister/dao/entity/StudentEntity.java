@@ -27,6 +27,12 @@ public class StudentEntity {
     @Column(nullable = true)
     private LocalDate dateOfBirth;
 
+    @Column(unique = false, nullable = false, length = 50)
+    private String faculty;
+
+    @Column(unique = false, nullable = false, length = 15)
+    private String phoneNumber;
+
     @Transient
     private long age;
 

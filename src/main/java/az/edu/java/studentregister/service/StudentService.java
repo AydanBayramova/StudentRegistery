@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class StudentService {
 
-   private final StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
 
     public StudentService(StudentRepository studentRepository, StudentMapper studentMapper) {
@@ -26,7 +26,7 @@ public class StudentService {
 
     public StudentDto addStudent(StudentDto studentDto) {
         StudentEntity studentEntity = studentMapper.studentDtoToEntity(studentDto);
-        if (studentEntity.getAge()<18){
+        if (studentEntity.getAge() < 18) {
             throw new IllegalAgeException("Age is under 18");
         }
         StudentEntity save = studentRepository.save(studentEntity);
@@ -44,7 +44,6 @@ public class StudentService {
         List<StudentEntity> all = studentRepository.findAll();
         List<StudentDto> studentDtos = studentMapper.entityListToDtoList(all);
         return studentDtos;
-//        studentRepository.findAll().stream().forEach(studentEntity -> studentMapper.entityToDto(studentEntity));
     }
 
     public StudentDto getStudent(Long id) {
@@ -57,7 +56,27 @@ public class StudentService {
 
         StudentEntity studentEntity = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
         studentEntity.setName(studentDto.getName());
+        studentEntity.setLastName(studentDto.getLastName());
+        studentEntity.setPhoneNumber(studentDto.getPhoneNumber());
+        studentEntity.setFaculty(studentDto.getFaculty());
         StudentEntity save = studentRepository.save(studentEntity);
         return studentMapper.entityToDto(save);
     }
+
+    public List<StudentDto> getStudentsByName(String name) {
+        List<StudentEntity> studentEntities = studentRepository.findByNameContainingIgnoreCase(name);
+        if (studentEntities.isEmpty()) {
+            throw new RuntimeException("No students found with name: " + name);
+        }
+        return studentMapper.entityListToDtoList(studentEntities);
+    }
+
+    public List<StudentDto> getStudentsByNameAndFaculty(String name, String faculty) {
+        List<StudentEntity> byNameContainingIgnoreCaseAndFaculty = studentRepository.findByNameContainingIgnoreCaseAndFaculty(name, faculty);
+        if (byNameContainingIgnoreCaseAndFaculty.isEmpty()) {
+            throw new RuntimeException("No students found with name: " + name);
+        }
+        return studentMapper.entityListToDtoList(byNameContainingIgnoreCaseAndFaculty);
+    }
+
 }
