@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -42,6 +43,11 @@ public class StudentController {
     public StudentDto getStudentById(@PathVariable Long id) {
 
         return studentService.getStudent(id);
+    }
+    @GetMapping("/getAll")
+    public ResponseEntity<List<StudentDto>> getAllReviews() {
+
+        return ResponseEntity.ok(studentService.getAllDates());
     }
 
     @DeleteMapping("{id}")

@@ -7,6 +7,7 @@ import az.edu.java.studentregister.mapper.StudentMapper;
 import az.edu.java.studentregister.model.dto.StudentDto;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -77,6 +78,13 @@ public class StudentService {
             throw new RuntimeException("No students found with name: " + name);
         }
         return studentMapper.entityListToDtoList(byNameContainingIgnoreCaseAndFaculty);
+    }
+    public List<StudentDto> getAllDates() {
+        List<StudentEntity> reviews = studentRepository.findAll(
+                Sort.by(Sort.Direction.DESC, "dateOfBirth")
+        );
+
+        return studentMapper.entityListToDtoList(reviews);
     }
 
 }
