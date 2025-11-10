@@ -27,9 +27,9 @@ public class StudentService {
 
     public StudentDto addStudent(StudentDto studentDto) {
         StudentEntity studentEntity = studentMapper.studentDtoToEntity(studentDto);
-        if (studentEntity.getAge() < 18) {
-            throw new IllegalAgeException("Age is under 18");
-        }
+//        if (studentEntity.getAge() < 18) {
+//            throw new IllegalAgeException("Age is under 18");
+//        }
         StudentEntity save = studentRepository.save(studentEntity);
         return studentMapper.entityToDto(save);
     }

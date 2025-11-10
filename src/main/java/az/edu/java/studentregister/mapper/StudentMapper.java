@@ -12,12 +12,10 @@ public interface StudentMapper{
 
     @Mapping(target = "name", source = "name")
     @Mapping(target = "lastName", source = "lastName")
-    @Mapping(target = "dateOfBirth", source = "dateOfBirth")
     StudentEntity studentDtoToEntity(StudentDto studentDto);
 
     @Mapping(target = "name", source = "name")
     @Mapping(target = "lastName", source = "lastName")
-    @Mapping(target = "dateOfBirth", source = "dateOfBirth")
     StudentDto entityToDto(StudentEntity studentEntity);
 
     List<StudentDto> entityListToDtoList(List<StudentEntity> studentEntities);
