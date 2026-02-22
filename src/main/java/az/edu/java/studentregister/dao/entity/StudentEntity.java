@@ -3,6 +3,7 @@ package az.edu.java.studentregister.dao.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ public class StudentEntity {
     private String lastName;
 
     @Column(nullable = true)
+    @CreationTimestamp
     private LocalDate dateOfBirth;
 
     @Column(unique = false, nullable = false, length = 50)
